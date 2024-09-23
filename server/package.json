@@ -1,0 +1,26 @@
+{
+  "name": "cen-app-server",
+  "version": "1.0.0",
+  "description": "Backend for UF SASE Website",
+  "main": "src/server.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "nodemon src/server.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.2.0",
+    "glob": "^10.4.2",
+    "inflight": "^1.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
