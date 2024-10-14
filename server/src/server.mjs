@@ -21,24 +21,25 @@ app.use(express.json());
 
 // CORS configuration
 const corsOptions = {
-  origin: ['http://localhost:8000', 'https://ufsase.com', 'https://uf-sase-website-prod-b303b626949f.herokuapp.com'],
+  origin: ['http://localhost:8000', 'https://dailyrays.com'], //TODO: add vercel url here
   credentials: true,
 };
 app.use(cors(corsOptions));
 
-// Routes
+// Routes for API
 app.use('/api/users', usersRouter);
+
+// 404 Handler for API routes
+app.use('/api/*', (req, res, next) => {
+  res.status(404).json({ message: 'API route not found' });
+});
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Catch-all route for serving React app (frontend routes)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// 404 Handler
-app.use((req, res, next) => {
-  res.status(404).json({ message: 'Page not found' });
 });
 
 // Error handling middleware
@@ -47,6 +48,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal Server Error' });
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

@@ -1,5 +1,5 @@
 {
-  "name": "uf-sase-website",
+  "name": "daily-rays-website",
   "version": "1.0.0",
   "scripts": {
     "client-install": "cd client && npm install",

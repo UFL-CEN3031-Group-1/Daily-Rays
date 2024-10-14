@@ -10,7 +10,7 @@ This is our CEN website
 2. **Clone the Repository**:
    - Clone the repository using Git:
      ```bash
-     git clone https://github.com/ufsasewebmaster/UF_SASE_Website
+     git clone https://github.com/UFL-CEN3031-Group-1/Daily-Rays
      ```
 
 3. **Install Server Dependencies**:

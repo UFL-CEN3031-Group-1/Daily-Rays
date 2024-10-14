@@ -9,7 +9,7 @@ import useAsync from '../hooks/useAsync';
 
 const UserOwnProfile = () => {
   // Needs to be fetched dynamically in the future
-  const username = 'RickRoyale';
+  const username = 'rickroyale';
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,6 @@ const UserOwnProfile = () => {
     setLoading(true);
     const fetchUser = async () => {
       try {
-        console.log(username);
         const response = await fetchData('/users/' + username);
         setUser(response.data);
         setEditableUser({

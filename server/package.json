@@ -1,7 +1,7 @@
 {
   "name": "cen-app-server",
   "version": "1.0.0",
-  "description": "Backend for UF SASE Website",
+  "description": "Backend for Daily Rays Website",
   "main": "src/server.mjs",
   "type": "module",
   "scripts": {

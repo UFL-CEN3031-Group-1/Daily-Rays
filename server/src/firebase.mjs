@@ -15,10 +15,16 @@ const serviceAccount = {
   client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
 };
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://sase-website-default-rtdb.firebaseio.com"
-});
+try {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://daily-ray-default-rtdb.firebaseio.com",
+  });
+  console.log("Firebase initialized successfully");
+} catch (error) {
+  console.error("Error initializing Firebase:", error.message);
+}
+
 
 const db = admin.firestore();
 
