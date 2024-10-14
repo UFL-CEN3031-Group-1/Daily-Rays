@@ -43,7 +43,7 @@ const getUserByUsername = async (req, res) => {
     const username = req.params.username;
     console.log(`Fetching user by username: ${username}`);
     
-    const snapshot = await db.collection('users').where('username', '==', username).get();
+    const snapshot = await db.collection('users').where('uid', '==', username).get();
     console.log("Snapshot received:", snapshot.size, "matching documents");  // Log number of matching documents
 
     if (snapshot.empty) {

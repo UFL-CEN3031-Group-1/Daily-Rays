@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { fetchData } from '../api/backend';
+import { getAuth } from 'firebase/auth'; // Import Firebase Authentication
+import { fetchData } from '../api/backend'; // If you're fetching additional data
 import { Link } from 'react-router-dom';
-import axiosInstance from '../api/axiosInstance';
-
 import Loading from './Loading';
 import ErrorPage from './ErrorPage';
-
-import useAsync from '../hooks/useAsync';
 
 const UserDirectory = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const auth = getAuth(); // Get Firebase auth object
+  const currentUser = auth.currentUser; // Get the currently authenticated user
 
   useEffect(() => {
     let isMounted = true;
+
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const response = await fetchData('/users');
+        // Fetch additional users from your database or Firestore
+        const response = await fetchData('/users'); 
         
         if (isMounted) {
           setUsers(response.data);
@@ -35,6 +36,7 @@ const UserDirectory = () => {
         }
       }
     };
+    
     fetchUsers();
     return () => {
       isMounted = false;
@@ -55,6 +57,14 @@ const UserDirectory = () => {
   return (
     <div>
       <h1>Profile Page</h1>
+
+      {/* Show the current logged-in user */}
+      {currentUser && (
+        <div>
+          <h2>Current User: {currentUser.email}</h2> {/* Display authenticated user's email */}
+        </div>
+      )}
+
       <ul>
         {users.map((user, index) => (
           <li key={index}>

@@ -1,0 +1,80 @@
+/* SignIn.css */
+.sign-in-page {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #357ae8;
+  }
+  
+  .google-sign-in {
+    background-color: #db4437; /* Google red */
+  }
+  
+  .google-sign-in:hover {
+    background-color: #c33d2f;
+  }
+  
+  .anonymous-sign-in {
+    background-color: #888;
+  }
+  
+  .anonymous-sign-in:hover {
+    background-color: #666;
+  }
+  
+  .email-sign-in {
+    margin: 20px 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  input:focus {
+    border-color: #4285F4;
+  }
+  
+  .toggle-signup {
+    color: #4285F4;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .toggle-signup:hover {
+    color: #357ae8;
+  }
+  

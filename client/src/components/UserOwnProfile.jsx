@@ -1,61 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { fetchData } from '../api/backend';
-import { Link } from 'react-router-dom';
-
+import { getAuth } from 'firebase/auth'; // Get Firebase Authentication instance
+import { fetchData } from '../api/backend'; // Fetch user details from custom users database
 import Loading from './Loading';
 import ErrorPage from './ErrorPage';
 
-import useAsync from '../hooks/useAsync';
-
 const UserOwnProfile = () => {
-  // Needs to be fetched dynamically in the future
-  const username = 'rickroyale';
+  const auth = getAuth(); // Initialize Firebase Authentication
+  const currentUser = auth.currentUser; // Get the currently signed-in user
 
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [editableUser, setEditableUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    username: ''
+  // Custom user data (from Firestore)
+  const [userDetails, setUserDetails] = useState({
+    username: '',
+    points: 0,
+    uid: ''
   });
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch additional user data from Firestore
   useEffect(() => {
-    setLoading(true);
-    const fetchUser = async () => {
+    const fetchUserDetails = async () => {
+      if (!currentUser) {
+        setError('User is not authenticated.');
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
       try {
-        const response = await fetchData('/users/' + username);
-        setUser(response.data);
-        setEditableUser({
-          firstName: response.data.firstName,
-          lastName: response.data.lastName,
-          email: response.data.email,
-          username: response.data.username
+        // Fetch user data from the custom users database using the UID
+        const response = await fetchData(`/users/${currentUser.uid}`);
+        setUserDetails({
+          username: response.data.username,
+          points: response.data.points,
+          uid: response.data.uid
         });
         setError(null);
-      } catch (error) {
-        if (!error.response) {
-          // Request made but no response or error
-          setError("Network error: " + error.message);
-        } else {
-          // Status code not in 200 range
-          setError(`Server error ${error.response.status}: ${error.response.data.message}`);
-        }
+      } catch (err) {
+        setError(`Error fetching user details: ${err.message}`);
       } finally {
         setLoading(false);
       }
     };
-    fetchUser();
-  }, [username]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditableUser((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
+    fetchUserDetails();
+  }, [currentUser]);
 
   if (loading) {
     return <Loading />;
@@ -65,57 +55,42 @@ const UserOwnProfile = () => {
     return <ErrorPage message={error} />;
   }
 
-  if (!user) {
-    return <ErrorPage message="User does not exist" />;
+  if (!currentUser) {
+    return <ErrorPage message="No authenticated user." />;
   }
 
-  // Needs to add backend route to actually change fields - note that username is read-only
   return (
     <div>
       <h1>Your Profile</h1>
+
+      {/* Display Firebase Authentication details */}
       <div>
-        <label>
-          First Name:
-          <input
-            type="text"
-            name="firstName"
-            value={editableUser.firstName}
-            onChange={handleChange}
-          />
-        </label>
+        <h2>Authentication Details</h2>
+        <div>
+          <label>Email:</label>
+          <span>{currentUser.email}</span>
+        </div>
+        <div>
+          <label>UID:</label>
+          <span>{currentUser.uid}</span>
+        </div>
       </div>
+
+      {/* Display custom user database details */}
       <div>
-        <label>
-          Last Name:
-          <input
-            type="text"
-            name="lastName"
-            value={editableUser.lastName}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={editableUser.email}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={editableUser.username}
-            readOnly
-          />
-        </label>
+        <h2>User Profile</h2>
+        <div>
+          <label>Username:</label>
+          <span>{userDetails.username}</span>
+        </div>
+        <div>
+          <label>Points:</label>
+          <span>{userDetails.points}</span>
+        </div>
+        <div>
+          <label>UID:</label>
+          <span>{userDetails.uid}</span>
+        </div>
       </div>
     </div>
   );
