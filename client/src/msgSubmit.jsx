@@ -23,11 +23,10 @@ function MyComponent() {
         <div>
             <form class="affirm-form" onSubmit={handleSubmit}>
                 <div> Please Input Affirmation</div>
-                <textarea class="message" placeholder="message"></textarea>
-                <input 
+                <textarea 
                     placeholder="message"
                     value={message} 
-                    onChange={(e)=>setMessage(e.target.value)}
+                    onChange={(e) => setMessage(e.target.value)}
                 />
                 <button class="submitBtn" type="submit">Send Affirmation</button>
             </form>
