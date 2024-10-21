@@ -2,7 +2,7 @@ import React from 'react';
 import {db} from "../firebase";
 
 
-function MyComponent() {
+function MessageSubmit() {
 
     const [message, setMessage] = useState("")
     
