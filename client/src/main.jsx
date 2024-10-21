@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import MessageSubmit from './msgSubmit';
 import './styles/global.css';
 import { LoadingProvider } from './contexts/LoadingContext';
 
@@ -12,6 +13,7 @@ root.render(
   <React.StrictMode>
     <LoadingProvider>
       <App />
+      <MessageSubmit/>
     </LoadingProvider>
   </React.StrictMode>
 );
