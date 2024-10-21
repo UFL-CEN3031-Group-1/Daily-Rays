@@ -1,6 +1,5 @@
-import React from 'react';
-import {db} from "../firebase";
-
+import React from 'react'
+import {db} from "server/src/firebase.mjs"
 
 function MessageSubmit() {
 
@@ -15,7 +14,7 @@ function MessageSubmit() {
                 message: message
             })
             .then(() => {
-                message=("") //reset
+                setMessage("") //reset
             })
     };
 
