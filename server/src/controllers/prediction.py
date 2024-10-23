@@ -11,6 +11,10 @@ model = DistilBertForSequenceClassification.from_pretrained('distilbert-base-unc
 model.load_state_dict(torch.load(model_path))
 model.eval()
 
+@app.route('/')
+def home():
+  return "Hello"
+
 @app.route('/predict', methods=['POST'])
 def predict():
   try:
