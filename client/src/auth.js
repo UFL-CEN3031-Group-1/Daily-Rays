@@ -32,13 +32,15 @@ import {
   };
   
   // Register with Email/Password and store additional user data in Firestore (note: needed to maintain additional fields besides default auth ones)
-export const registerWithEmailPassword = async (email, password) => {
+export const registerWithEmailPassword = async (email, password, firstName="", lastName="", userName="") => {
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       const user = result.user;
   
       await setDoc(doc(firestore, 'users', user.uid), {
-        username: email.split('@')[0],            
+        username: userName ? userName : email.split('@')[0],         
+        firstName: firstName,
+        lastName: lastName,   
         points: 0,                     
         uid: user.uid                 
       });
