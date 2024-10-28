@@ -8,6 +8,7 @@
   import UserPage from './components/UserPage';
   import SignIn from './components/SignIn';
   import MindfulMinutes from './components/MindfulMinutes';
+  import Affirmation from './components/Affirmation';
 
   import ErrorPage from './components/ErrorPage';
   import Loading from './components/Loading';
@@ -26,6 +27,7 @@
           {loading && <Loading />}
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/affirmation" element={<Affirmation />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<UserOwnProfile />} />
             <Route path='/directory' element={<UserDirectory />} />
