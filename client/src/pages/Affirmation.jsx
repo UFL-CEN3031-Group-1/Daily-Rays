@@ -1,4 +1,4 @@
-import AffirmationBox from './AffirmationBox';
+import AffirmationBox from '../components/AffirmationBox';
 import { useState } from 'react';
 
 const Affirmation = () => {

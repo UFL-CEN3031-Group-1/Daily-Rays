@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 import { signOutUser, onAuthStateChangedListener } from '../auth';
 
 const Header = () => {
     const [currentUser, setCurrentUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedListener((user) => {
-            setCurrentUser(user); // Update state when user signs in or out
+            setCurrentUser(user);
         });
         return () => unsubscribe();
     }, []);
 
-    // Handle sign-out
     const handleSignOut = async () => {
         try {
             await signOutUser();
-            setCurrentUser(null); // Clear current user from state after sign-out
+            setCurrentUser(null);
         } catch (error) {
             console.error('Error signing out:', error);
         }
+        navigate('/signin');
     };
-    // console.log(currentUser);
 
     return (
         <header className="header">
@@ -32,23 +32,24 @@ const Header = () => {
             <nav className="nav">
                 <ul>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/affirmation">Affirmation</Link></li>
                     <li><Link to="/about">About</Link></li>
-                    <li><Link to="/profile">Profile</Link></li>
+                    <li><Link to="/affirmation">Affirmation</Link></li>
                     <li><Link to="/mindfulminutes">Mindful Minutes</Link></li>
-                    <li><Link to="/directory">Directory</Link></li>
-
                     {currentUser ? (
                         <>
                             <li>
-                            <span>{currentUser.isAnonymous ? "Anonymous" : currentUser.email}</span>
+                                <Link to={`/profile/${currentUser.username ? currentUser.username : 'anonymous'}`}>
+                                    Profile
+                                </Link>
                             </li>
                             <li>
                                 <span onClick={handleSignOut}>Sign Out</span>
                             </li>
                         </>
                     ) : (
-                        <li><Link to="/signin">Sign In</Link></li>
+                        <li>
+                            <Link to="/signin">Sign In</Link>
+                        </li>
                     )}
                 </ul>
             </nav>
