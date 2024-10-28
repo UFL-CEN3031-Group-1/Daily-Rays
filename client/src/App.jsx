@@ -7,6 +7,7 @@
   import UserDirectory from './components/UserDirectory';
   import UserPage from './components/UserPage';
   import SignIn from './components/SignIn';
+  import MindfulMinutes from './components/MindfulMinutes';
 
   import ErrorPage from './components/ErrorPage';
   import Loading from './components/Loading';
@@ -28,6 +29,7 @@
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<UserOwnProfile />} />
             <Route path='/directory' element={<UserDirectory />} />
+            <Route path='/mindfulminutes' element={<MindfulMinutes/>} />
 
             <Route path="/users/:username" element={<UserPage />} />
             <Route path="/signin" element={<SignIn />} />
