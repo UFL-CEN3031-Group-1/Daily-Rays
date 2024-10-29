@@ -8,11 +8,25 @@ import { Grid2 } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Switch from '@mui/material/Switch';
+import Button from '@mui/material/Button'; 
 
 const MindfulMinutes = () => {
     const today = new Date();
     const formattedDate = today.toLocaleDateString();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+    const handleClick = async () => {
+        try {
+            const response = await fetch('http://localhost:5050/api/getcalendar'); // Adjust the URL as needed
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data); // Handle the response data as needed
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    };
 
     return (
         <div> 
@@ -41,7 +55,17 @@ const MindfulMinutes = () => {
                             Enable Notifications:
                         </Typography>
                         <Switch {...label} defaultChecked color="warning" />
-                    </Box>                    
+                    </Box> 
+                    <Box display="flex" justifyContent="center" marginTop={2}>
+                        <Button
+                            variant="contained"
+                             color="warning"
+                            onClick={handleClick}
+                            sx={{ width: '50%' }} // Set button width to half
+                        >
+                            Get my Mindful Minutes
+                        </Button>
+                    </Box>                   
 
                 </Grid2>
                 <Grid2 size={8}>
