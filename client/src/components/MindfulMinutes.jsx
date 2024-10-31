@@ -17,6 +17,7 @@ const MindfulMinutes = () => {
     const formattedDate = today.toLocaleDateString();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
     const [notificationsEnabled, setNotificationsEnabled] = useState(false); // New state for notifications
+    const formattedTimes=[]
 
 
     const formatTime = (isoString) => {
@@ -26,18 +27,52 @@ const MindfulMinutes = () => {
 
     const handleClick = async () => {
         try {
-            const response = await fetch('http://localhost:5050/api/getmindful'); // Adjust the URL as needed
+            const response = await fetch('http://localhost:5050/api/getmindful'); 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
             console.log(data); // Log the data for debugging
 
-            const formattedTimes = data.recommended_relaxation_slots.map(formatTime);
-            setRelaxationTimes(formattedTimes || ["", ""]); // Update state
+            
+            setRelaxationTimes(data.recommended_relaxation_slots || ["", ""]); // Update state
             setNotificationsEnabled(true);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
+        }
+    };
+
+    const handleNotificationsToggle = async (event) => {
+        const isChecked = event.target.checked;
+        setNotificationsEnabled(isChecked);
+
+        if (isChecked) {
+            // Validate relaxation times before making the request
+            const validRelaxationTimes = relaxationTimes.filter(time => time !== "");
+            if (validRelaxationTimes.length > 0) {
+                try {
+                    const response = await fetch('http://localhost:5050/api/create-events', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            recommended_relaxation_slots: validRelaxationTimes,
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to create events');
+                    }
+
+                    const result = await response.json();
+                    console.log(result.message);
+                } catch (error) {
+                    console.error('There was a problem creating events:', error);
+                }
+            } else {
+                console.error('No valid relaxation times available for event creation.');
+            }
         }
     };
 
@@ -63,12 +98,6 @@ const MindfulMinutes = () => {
                     <Typography variant="h6" gutterBottom >
                         <strong>{formattedDate}</strong>
                     </Typography>
-                    {/* <Box display="flex" alignItems="center" justifyContent="center">
-                        <Typography variant="body1" sx={{ marginRight: 1 }}> 
-                            Enable Notifications:
-                        </Typography>
-                        <Switch {...label} color="warning" />
-                    </Box>  */}
                     <Box display="flex" justifyContent="center" marginTop={2}>
                         <Button
                             variant="contained"
@@ -84,7 +113,7 @@ const MindfulMinutes = () => {
                             <Typography variant="body1" sx={{ marginRight: 1 }}>
                                 Enable Notifications:
                             </Typography>
-                            <Switch {...label} color="warning" />
+                            <Switch {...label} onChange={handleNotificationsToggle} color="warning" />
                         </Box>
                     )}
                                     
@@ -97,7 +126,7 @@ const MindfulMinutes = () => {
                                 Task 1
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {relaxationTimes[0] || "Blah blah"}
+                                {formatTime(relaxationTimes[0]) || "Blah blah"}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -109,7 +138,7 @@ const MindfulMinutes = () => {
                                 Task 2
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {relaxationTimes[1] || "Blah blah"}
+                                {formatTime(relaxationTimes[1])|| "Blah blah"}
                             </Typography>
                         </CardContent>
                     </Card>

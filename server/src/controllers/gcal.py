@@ -10,7 +10,7 @@ import pytz
 import random
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,  origins=["http://localhost:3000", "http://127.0.0.1:5000","http://127.0.0.1:8000"])
 port = 5050
 
 @app.after_request
@@ -56,11 +56,6 @@ def get_calendar():
             "message": str(e),
         }), 400
 
-def find_open_times():
-    import random
-from datetime import datetime, timedelta
-from flask import jsonify
-
 @app.route('/api/getmindful', methods=['GET'])
 def get_open_time_slots():
     calendar = GoogleCalendar('gayatri.baskaran1@gmail.com')
@@ -72,14 +67,15 @@ def get_open_time_slots():
     # Sort events by start time
     events = sorted(events, key=lambda event: event.start)
 
-    # 10 am to 10 pm (or when button clicked)
+    # 10 am to 11 pm (or when button clicked)
     current_hour = datetime.now().hour 
+    current_minute = datetime.now().minute 
     if (current_hour > 10):
         work_start = tz.localize(today.replace(hour=current_hour, minute=0))
     else:   
         work_start = tz.localize(today.replace(hour=10, minute=0))
 
-    work_end = tz.localize(today.replace(hour=22, minute=0))
+    work_end = tz.localize(today.replace(hour=23, minute=0))
 
     open_slots = []
     last_end_time = work_start
@@ -108,6 +104,43 @@ def get_open_time_slots():
         "open_slots": [(start.isoformat(), end.isoformat()) for start, end in open_slots],
         "recommended_relaxation_slots": [slot.isoformat() for slot in recommended_relaxation_slots]
     })
+
+@app.route('/api/create-events', methods=['POST'])
+def create_calendar_events():
+    data = request.json
+    relaxation_slots = data.get('recommended_relaxation_slots', [])
+
+    calendar = GoogleCalendar('gayatri.baskaran1@gmail.com')
+    events_created = []
+
+    for slot in relaxation_slots:
+        start_time = datetime.fromisoformat(str(slot))
+        end_time = start_time + timedelta(minutes=10)  # Assuming each relaxation slot is 10 minutes
+        
+        event = Event(
+            'Mindful Minutes',
+            start=start_time,
+            end = end_time,
+            minutes_before_popup_reminder=2
+        )
+        calendar.add_event(event)
+        events_created.append(event)
+
+    return jsonify({
+        "status": "success",
+        "message": f"{len(events_created)} events created.",
+        "events": [event_to_dict(event) for event in events_created]
+    })
+
+def event_to_dict(event):
+    return {
+        "summary": event.summary,
+        "start": event.start.isoformat(),
+        "end": event.end.isoformat(),
+        "description": event.description,
+        "location": event.location,
+    }
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
