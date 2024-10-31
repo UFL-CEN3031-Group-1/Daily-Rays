@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import '@fontsource/roboto/400.css';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -11,18 +12,30 @@ import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button'; 
 
 const MindfulMinutes = () => {
+    const [relaxationTimes, setRelaxationTimes] = useState(["", ""]); // Initial state for relaxation times
     const today = new Date();
     const formattedDate = today.toLocaleDateString();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
+    const [notificationsEnabled, setNotificationsEnabled] = useState(false); // New state for notifications
+
+
+    const formatTime = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    };
 
     const handleClick = async () => {
         try {
-            const response = await fetch('http://localhost:5050/api/getcalendar'); // Adjust the URL as needed
+            const response = await fetch('http://localhost:5050/api/getmindful'); // Adjust the URL as needed
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            console.log(data); // Handle the response data as needed
+            console.log(data); // Log the data for debugging
+
+            const formattedTimes = data.recommended_relaxation_slots.map(formatTime);
+            setRelaxationTimes(formattedTimes || ["", ""]); // Update state
+            setNotificationsEnabled(true);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
@@ -50,12 +63,12 @@ const MindfulMinutes = () => {
                     <Typography variant="h6" gutterBottom >
                         <strong>{formattedDate}</strong>
                     </Typography>
-                    <Box display="flex" alignItems="center" justifyContent="center">
+                    {/* <Box display="flex" alignItems="center" justifyContent="center">
                         <Typography variant="body1" sx={{ marginRight: 1 }}> 
                             Enable Notifications:
                         </Typography>
-                        <Switch {...label} defaultChecked color="warning" />
-                    </Box> 
+                        <Switch {...label} color="warning" />
+                    </Box>  */}
                     <Box display="flex" justifyContent="center" marginTop={2}>
                         <Button
                             variant="contained"
@@ -65,7 +78,16 @@ const MindfulMinutes = () => {
                         >
                             Get my Mindful Minutes
                         </Button>
-                    </Box>                   
+                    </Box>   
+                    {notificationsEnabled && ( 
+                        <Box display="flex" alignItems="center" justifyContent="center" marginTop={2}>
+                            <Typography variant="body1" sx={{ marginRight: 1 }}>
+                                Enable Notifications:
+                            </Typography>
+                            <Switch {...label} color="warning" />
+                        </Box>
+                    )}
+                                    
 
                 </Grid2>
                 <Grid2 size={8}>
@@ -75,7 +97,7 @@ const MindfulMinutes = () => {
                                 Task 1
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Blah blah
+                                {relaxationTimes[0] || "Blah blah"}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -87,24 +109,12 @@ const MindfulMinutes = () => {
                                 Task 2
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Blah blah
+                                {relaxationTimes[1] || "Blah blah"}
                             </Typography>
                         </CardContent>
                     </Card>
 
                     <br></br>
-
-                    <Card sx={{ width: '100%',  padding: 1 }}>
-                        <CardContent>
-                            <Typography variant="h7" component="div">
-                                Task 3
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Blah blah
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
                 </Grid2>
             </Grid2>
         </div>

@@ -6,6 +6,8 @@ from gcsa.google_calendar import GoogleCalendar
 from gcsa.recurrence import Recurrence, DAILY, SU, SA
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+import pytz
+import random
 
 app = Flask(__name__)
 CORS(app)
@@ -53,6 +55,59 @@ def get_calendar():
             "status": "error",
             "message": str(e),
         }), 400
+
+def find_open_times():
+    import random
+from datetime import datetime, timedelta
+from flask import jsonify
+
+@app.route('/api/getmindful', methods=['GET'])
+def get_open_time_slots():
+    calendar = GoogleCalendar('gayatri.baskaran1@gmail.com')
+    today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = today + timedelta(days=1)
+    events = calendar.get_events(time_min=today, time_max=tomorrow)
+    tz = pytz.timezone('America/New_York')
+    
+    # Sort events by start time
+    events = sorted(events, key=lambda event: event.start)
+
+    # 10 am to 10 pm (or when button clicked)
+    current_hour = datetime.now().hour 
+    if (current_hour > 10):
+        work_start = tz.localize(today.replace(hour=current_hour, minute=0))
+    else:   
+        work_start = tz.localize(today.replace(hour=10, minute=0))
+
+    work_end = tz.localize(today.replace(hour=22, minute=0))
+
+    open_slots = []
+    last_end_time = work_start
+
+    for event in events:
+        event_start = event.start if event.start.tzinfo else tz.localize(event.start)
+        event_end = event.end if event.end.tzinfo else tz.localize(event.end)
+
+        if last_end_time < event.start:
+            open_slots.append((last_end_time, event.start))
+        last_end_time = max(last_end_time, event.end)
+
+    if last_end_time < work_end:
+        open_slots.append((last_end_time, work_end))
+
+    potential_slots = []
+    for start, end in open_slots:
+        while (end - start) >= timedelta(minutes=10):  # Ensure at least 10S mins
+            potential_slots.append(start)
+            start += timedelta(minutes=10)  # Increment by 10 mins
+
+    recommended_relaxation_slots = random.sample(potential_slots, min(2, len(potential_slots)))
+
+    return jsonify({
+        "status": "success",
+        "open_slots": [(start.isoformat(), end.isoformat()) for start, end in open_slots],
+        "recommended_relaxation_slots": [slot.isoformat() for slot in recommended_relaxation_slots]
+    })
 
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
