@@ -4,9 +4,23 @@ import { Button, TextField, Typography, Box, Stack, Divider } from '@mui/materia
 import GoogleIcon from '@mui/icons-material/Google';
 import { useNavigate } from 'react-router-dom';
 
+const orDivider = (
+    <Divider
+        sx={{
+            my: 1,
+            fontWeight: 'light',
+            borderBottomWidth: '2px',
+            color: 'text.secondary',
+        }}
+    >
+        or
+    </Divider>
+);
+
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');     
     const navigate = useNavigate(); // Hook for navigation
 
     // Handle Google Sign-In
@@ -22,11 +36,13 @@ const SignIn = () => {
     // Handle Email/Password Sign-In
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
+        setError('');
         try {
             const user = await signInWithEmailPassword(email, password);
             navigate('/');
         } catch (error) {
-            console.error('Email sign-in failed', error);
+            setError("Incorrect email or password. Try signing up if you don't have an account.");
+            console.log(error);
         }
     };
 
@@ -41,7 +57,7 @@ const SignIn = () => {
     };
 
     return (
-        <Box className="sign-in-page" sx={{ maxWidth: 400, mx: 'auto', mt: 5, textAlign: 'center' }}>
+        <Box className="sign-in-page" sx={{ maxWidth: 'max(300px, 20%)', mx: 'auto', mt: 5, textAlign: 'center' }}>
             <Typography
                 variant="h4"
                 component="h1"
@@ -56,7 +72,6 @@ const SignIn = () => {
                 Welcome Back!
             </Typography>
 
-
             <Button
                 variant="contained"
                 startIcon={<GoogleIcon />}
@@ -66,16 +81,7 @@ const SignIn = () => {
                 Sign in with Google
             </Button>
 
-            <Divider
-                sx={{
-                    my: 1,
-                    fontWeight: 'light',
-                    borderBottomWidth: '2px',
-                    color: 'text.secondary',
-                }}
-            >
-                or
-            </Divider>
+            {orDivider}
 
             <form onSubmit={handleEmailSubmit}>
                 <Stack spacing={2}>
@@ -103,16 +109,7 @@ const SignIn = () => {
                 </Stack>
             </form>
 
-            <Divider
-                sx={{
-                    my: 1,
-                    fontWeight: 'light',
-                    borderBottomWidth: '2px',
-                    color: 'text.secondary',
-                }}
-            >
-                or
-            </Divider>
+            {orDivider}
 
             <Button
                 variant="text" // not as apparent as contained
@@ -121,6 +118,14 @@ const SignIn = () => {
             >
                 Sign in Anonymously
             </Button>
+
+            <Divider sx={{ my: 2 }} />
+
+            {error && (
+                <Typography color="error" variant="body2">
+                    {error}
+                </Typography>
+            )}
 
             <Typography variant="body2" sx={{ mt: 2 }}>
                 Don't have an account?{' '}
@@ -132,6 +137,7 @@ const SignIn = () => {
                     Sign Up
                 </Typography>
             </Typography>
+
 
         </Box>
     );
