@@ -4,21 +4,22 @@ import { Button, TextField, Typography, Box, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-    const [fullName, setFullName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleSignUp = async (e) => {
-        e.preventDefault(); // Add this line
+        e.preventDefault();
         try {
-            const [firstName, lastName] = fullName.trim().split(' ');
             const user = await registerWithEmailPassword(email, password, firstName, lastName, username);
             console.log('Registration successful', user);
             navigate('/');
         } catch (error) {
-            alert('Registration failed' + error);
+            setError(error.message);
         }
     };
 
@@ -31,10 +32,18 @@ const SignUp = () => {
             <form onSubmit={handleSignUp}>
                 <Stack spacing={2}>
                     <TextField
-                        label="Full Name"
+                        label="First Name"
                         variant="outlined"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                        fullWidth
+                    />
+                    <TextField
+                        label="Last Name"
+                        variant="outlined"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                         required
                         fullWidth
                     />
@@ -73,6 +82,7 @@ const SignUp = () => {
                         Sign Up
                     </Button>
                 </Stack>
+                {error && <Typography color="error">{error}</Typography>}
             </form>
         </Box>
     );

@@ -1,84 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
-import { getAuth } from 'firebase/auth';
-import { fetchData } from '../api/backend';
+import { fetchUserDataByUid } from '../api/user';
 import Loading from '../pages/Loading';
 import ErrorPage from '../pages/ErrorPage';
 
-const ProfileCard = () => {
-  const [userDetails, setUserDetails] = useState({
-    email: '',
-    firebaseUid: '',
-    username: '',
-    points: 0,
-    customUid: ''
-  });
+const ProfileCard = ({ uid }) => {
+  const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      const auth = getAuth();
-      const currentUser = auth.currentUser;
+    if (!uid) {
+      setError('Invalid UID.');
+      setLoading(false);
+      return;
+    }
 
-      if (!currentUser) {
-        setError('User is not authenticated.');
-        setLoading(false);
-        return;
-      }
+    console.log('Fetching profile data for UID:', uid);
 
-      setLoading(true);
+    const getProfileData = async () => {
       try {
-        // Fetch additional user data using the current user's UID
-        const response = await fetchData(`/users/${currentUser.uid}`);
-        setUserDetails({
-          email: currentUser.email,
-          firebaseUid: currentUser.uid,
-          username: response.data.username,
-          points: response.data.points,
-          customUid: response.data.uid
-        });
-        setError(null);
+        const response = await fetchUserDataByUid(uid);
+        console.log('Fetched data for UID:', uid, response);
+        if (response.data) {
+          setProfileData(response.data);
+        } else {
+          setError('Profile data not found.');
+        }
       } catch (err) {
-        setError(`Error fetching user details: ${err.message}`);
+        setError('Error fetching profile data.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUserDetails();
-  }, []);
-
+    getProfileData();
+  }, [uid]);
+  
   if (loading) return <Loading />;
   if (error) return <ErrorPage message={error} />;
 
   return (
-    <Card sx={{ padding: '1rem', marginBottom: '2rem' }}>
-      <CardContent>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6">Email</Typography>
-            <Typography>{userDetails.email}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6">Firebase UID</Typography>
-            <Typography>{userDetails.firebaseUid}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6">Username</Typography>
-            <Typography>{userDetails.username || 'N/A'}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6">Points</Typography>
-            <Typography>{userDetails.points}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6">Custom UID</Typography>
-            <Typography>{userDetails.customUid}</Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+    <div className="profile-card">
+      <h2>{profileData.username}</h2>
+      <p>Name: {profileData.firstName + " "+profileData.lastName}</p>
+      <p>Points: {profileData.points}</p>
+      {/* Add more profile details as needed */}
+    </div>
   );
 };
 
