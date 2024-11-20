@@ -11,7 +11,7 @@ import logger from './middleware/logger.mjs';
 import usersRouter from './routes/users.mjs';
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5050;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
