@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import '@fontsource/roboto/400.css';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -8,11 +9,72 @@ import { Grid2 } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Switch from '@mui/material/Switch';
+import Button from '@mui/material/Button'; 
 
 const MindfulMinutes = () => {
+    const [relaxationTimes, setRelaxationTimes] = useState(["", ""]); // Initial state for relaxation times
     const today = new Date();
     const formattedDate = today.toLocaleDateString();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
+    const [notificationsEnabled, setNotificationsEnabled] = useState(false); // New state for notifications
+    const formattedTimes=[]
+
+
+    const formatTime = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    };
+
+    const handleClick = async () => {
+        try {
+            const response = await fetch('http://localhost:5050/api/getmindful'); 
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data); // Log the data for debugging
+
+            
+            setRelaxationTimes(data.recommended_relaxation_slots || ["", ""]); // Update state
+            setNotificationsEnabled(true);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    };
+
+    const handleNotificationsToggle = async (event) => {
+        const isChecked = event.target.checked;
+        setNotificationsEnabled(isChecked);
+
+        if (isChecked) {
+            // Validate relaxation times before making the request
+            const validRelaxationTimes = relaxationTimes.filter(time => time !== "");
+            if (validRelaxationTimes.length > 0) {
+                try {
+                    const response = await fetch('http://localhost:5050/api/create-events', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            recommended_relaxation_slots: validRelaxationTimes,
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to create events');
+                    }
+
+                    const result = await response.json();
+                    console.log(result.message);
+                } catch (error) {
+                    console.error('There was a problem creating events:', error);
+                }
+            } else {
+                console.error('No valid relaxation times available for event creation.');
+            }
+        }
+    };
 
     return (
         <div> 
@@ -36,12 +98,25 @@ const MindfulMinutes = () => {
                     <Typography variant="h6" gutterBottom >
                         <strong>{formattedDate}</strong>
                     </Typography>
-                    <Box display="flex" alignItems="center" justifyContent="center">
-                        <Typography variant="body1" sx={{ marginRight: 1 }}> 
-                            Enable Notifications:
-                        </Typography>
-                        <Switch {...label} defaultChecked color="warning" />
-                    </Box>                    
+                    <Box display="flex" justifyContent="center" marginTop={2}>
+                        <Button
+                            variant="contained"
+                             color="warning"
+                            onClick={handleClick}
+                            sx={{ width: '50%' }} // Set button width to half
+                        >
+                            Get my Mindful Minutes
+                        </Button>
+                    </Box>   
+                    {notificationsEnabled && ( 
+                        <Box display="flex" alignItems="center" justifyContent="center" marginTop={2}>
+                            <Typography variant="body1" sx={{ marginRight: 1 }}>
+                                Enable Notifications:
+                            </Typography>
+                            <Switch {...label} onChange={handleNotificationsToggle} color="warning" />
+                        </Box>
+                    )}
+                                    
 
                 </Grid2>
                 <Grid2 size={8}>
@@ -51,7 +126,7 @@ const MindfulMinutes = () => {
                                 Task 1
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Blah blah
+                                {formatTime(relaxationTimes[0]) || "Blah blah"}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -63,24 +138,12 @@ const MindfulMinutes = () => {
                                 Task 2
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Blah blah
+                                {formatTime(relaxationTimes[1])|| "Blah blah"}
                             </Typography>
                         </CardContent>
                     </Card>
 
                     <br></br>
-
-                    <Card sx={{ width: '100%',  padding: 1 }}>
-                        <CardContent>
-                            <Typography variant="h7" component="div">
-                                Task 3
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Blah blah
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
                 </Grid2>
             </Grid2>
         </div>
