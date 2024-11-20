@@ -29,7 +29,7 @@
             <Route path="/affirmation" element={<Affirmation />} />
             <Route path="/about" element={<About />} />
             <Route path='/mindfulminutes' element={<MindfulMinutes/>} />
-            <Route path="/profile/anonymous" element={<AnonymousProfile />} />
+            {/**<Route path="/profile/anonymous" element={<AnonymousProfile />} />**/}
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />

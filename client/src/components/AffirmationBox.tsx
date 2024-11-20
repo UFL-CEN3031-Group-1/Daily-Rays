@@ -12,11 +12,12 @@ const AffirmationBox = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post('/api/sentiment', {
-                text: input,
+            const response = await axios.post('http://127.0.0.1:5050/api/predict', {
+                input: input,
             });
-            setSubmittedText(response.data.message); // Adjust based on Flask response
+            setSubmittedText(response.data.prediction || response.data.error); // Adjust based on Flask response
             setInput(''); // Clear input after submission
+            console.log(setSubmittedText)
         } catch (error) {
             console.error('Error submitting text:', error);
         }

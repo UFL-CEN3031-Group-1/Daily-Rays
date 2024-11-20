@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 
 # Initialize CORS
-CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:5000"])  # Adjust as needed
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:8000"}})  # Adjust as needed
 
 load_dotenv()
 
