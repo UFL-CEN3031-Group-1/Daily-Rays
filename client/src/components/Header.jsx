@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 import { useUser } from '../contexts/UserContext';
 import { signOutUser } from '../auth'; // Ensure this function correctly signs out the user
+import rotateSunGif from '../images/rotate_sun.gif';
 
 const Header = () => {
   const { user, loading, error } = useUser();
@@ -32,8 +33,10 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="logo">
-        <Link to="/">DailyRay</Link>
+      <div className="logo" >
+        <Link to="/">
+          <img src={rotateSunGif} alt="Daily Rays" style={{height: '50px', padding: 0, margin: 0 }} />
+        </Link>
       </div>
       <nav className="nav">
         <ul>
