@@ -5,7 +5,6 @@ body {
   background-attachment: fixed; /* Keeps the background fixed when scrolling */
   height: 100vh; /* Ensures the background covers the full height of the page */
   margin: 0; /* Removes default margin */
-  font-family: Arial, sans-serif; /* Choose a font style for your page */
 }
 
 /* App.css or any CSS file */
