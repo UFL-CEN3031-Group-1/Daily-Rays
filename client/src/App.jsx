@@ -14,9 +14,6 @@ import SignUp from './pages/SignUp';
 import { useLoading } from './contexts/LoadingContext';
 import { UserProvider } from './contexts/UserContext';
 
-import './styles/App.css';
-import './styles/global.css';
-
 const App = () => {
   const { loading } = useLoading();
 

@@ -5,6 +5,7 @@ import { useUser } from '../contexts/UserContext';
 import Loading from './Loading';
 import ErrorPage from './ErrorPage';
 import { fetchUserByUsername } from '../api/user'; // Ensure this function exists
+import UserDirectory from '../components/UserDirectory'
 
 const Profile = () => {
   const { username } = useParams(); // Get the username from the URL

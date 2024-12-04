@@ -1,7 +1,8 @@
 import React from 'react';
-import WbSunnyTwoToneIcon from '@mui/icons-material/WbSunnyTwoTone';
+import WbSunny from '@mui/icons-material/WbSunny';
 import '@fontsource/roboto/400.css';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/system';
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -157,9 +158,81 @@ const Home = () => {
                 </Grid2>
   
 
-            <Grid2 container spacing={4} justifyContent="center" padding={2}>
-                <Grid2 size={4}>
-                    <Card sx={{ width: '100%' }}>
+            {/* Main Content */}
+            <Grid container spacing={2} sx={{ height: '100vh' }}>
+                <Grid item xs={12} md={9}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            height: '100%',
+                            padding: '16px',
+                        }}
+                    >
+                        <img
+                            src={bwSunImage}
+                            alt="Sunshine"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                            }}
+                        />
+                    </Box>
+                </Grid>
+                <Grid item xs={12} md={3} sx={{ height: '100%' }}>
+                    <Grid
+                        container
+                        direction="column"
+                        spacing={2}
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ height: '100%' }}
+                    >
+                        {/* Quote Section */}
+                        <Grid item xs={6}>
+                            <Box sx={{ textAlign: 'center', padding: 2 }}>
+                                <Typography
+                                    variant="h6"
+                                    sx={{ fontStyle: 'italic', color: '#333' }}
+                                >
+                                    "Wherever you go, no matter the weather, always bring your own
+                                    sunshine!"
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        {/* Image Section */}
+                        <Grid item xs={6}>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    height: '100%',
+                                }}
+                            >
+                                <img
+                                    src={otherSunImage}
+                                    alt="Sunshine"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                    }}
+                                />
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            {/* Cards Section */}
+            <Grid
+                container
+                spacing={4}
+                justifyContent="center"
+                alignItems="center"
+                sx={{ padding: 4, textAlign: 'center' }}
+            >
+                <Grid item xs={12} sm={4}>
+                    <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Start your day out right
@@ -169,9 +242,9 @@ const Home = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid2>
-                <Grid2 size={4}>
-                    <Card sx={{ width: '100%' }}>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                    <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Mindful Minutes
@@ -181,9 +254,9 @@ const Home = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid2>
-                <Grid2 size={4}>
-                    <Card sx={{ width: '100%' }}>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                    <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Keep Track
@@ -193,8 +266,8 @@ const Home = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid2>
-            </Grid2>
+                </Grid>
+            </Grid>
         </div>
     );
 };

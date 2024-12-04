@@ -25,7 +25,6 @@ const AffirmationBox = () => {
 
     return (
         <div>
-            <h2>Affirmation Box</h2>
             <textarea
                 value={input}
                 onChange={handleInputChange}
