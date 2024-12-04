@@ -1,5 +1,6 @@
 import os
 import torch
+import random
 from flask import Flask, request, jsonify
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from flask_cors import CORS
@@ -31,6 +32,7 @@ service_account_info = {
 creds = service_account.Credentials.from_service_account_info(service_account_info)
 
 db = firestore.Client(credentials=creds, project=os.getenv("FIREBASE_PROJECT_ID"))
+affirmations = db.collection('affirmations')
 
 # Determine the directory where the current script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -81,7 +83,7 @@ def predict():
         prediction = label_map.get(predicted_class, "unknown")
 
         if prediction == 'positive':
-          db.collection('affirmations').add({
+          affirmations.add({
             'message': data['input'],
             'time-created': datetime.utcnow()
           })
@@ -92,6 +94,38 @@ def predict():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+    
+"""
+@app.route('/api/receive', methods=['GET'])
+def receive():
+    received_affirmation = ''
+    key = affirmations.document().id
+    
+    try:
+        snapshot = affirmations.filter('__name__', '>=', f'affirmations/{key}').limit(1).stream()
+        docs = list(snapshot)
+
+        if docs:
+            return jsonify({'doc': docs[0]})
+        else:
+            snapshot = affirmations.filter('__name__', '<', f'affirmations/{key}').limit(1).stream()
+            docs = list(snapshot)
+            return jsonify({'doc': docs[0]})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+"""
+@app.route('/api/receive', methods=['GET'])
+def receive():
+    docs = affirmations.stream()
+    doc_list = list(docs)
+
+    if doc_list:
+        random_doc = random.choice(doc_list)
+        data = random_doc.to_dict()
+        return jsonify({'affirmation': data['message']})
+    else:
+        return jsonify({'error': str(e)}), 400
+        
 
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
