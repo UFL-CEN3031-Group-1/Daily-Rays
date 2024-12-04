@@ -9,7 +9,7 @@ const ReceivedAffirmation = ({ affirmation }) => (
 );
 
 const AffirmationBoxWithValidation = ({ affirmation, setPositiveAffirmation }) => {
-    // TODO change here
+    // Mock validation for positivity
     const isPositive = affirmation.toLowerCase().includes('good');
     setPositiveAffirmation(isPositive);
 
@@ -33,7 +33,6 @@ const Affirmation = () => {
     };
 
     const handleNextToConfirm = () => {
-        // Add logic for checking here (if we were to do it on send)
         if (positiveAffirmation) {
             setCurrentPage('confirm');
         } else {
@@ -58,17 +57,21 @@ const Affirmation = () => {
             case 'enter':
                 return (
                     <div>
-                        <h1>Enter Your Affirmation</h1>
-                        <AffirmationBoxWithValidation
-                            affirmation={affirmation}
-                            setPositiveAffirmation={setPositiveAffirmation}
-                        />
-                        <textarea
-                            value={affirmation}
-                            onChange={(e) => setAffirmation(e.target.value)}
-                            placeholder="Write your affirmation here..."
-                        />
-                        <button onClick={handleNextToConfirm}>Next</button>
+                        <div>
+                            <h1>Enter Your Affirmation</h1>
+                            <AffirmationBoxWithValidation
+                                affirmation={affirmation}
+                                setPositiveAffirmation={setPositiveAffirmation}
+                            />
+                            <textarea
+                                value={affirmation}
+                                onChange={(e) => setAffirmation(e.target.value)}
+                                placeholder="Write your affirmation here..."
+                            />
+                        </div>
+                        <div>
+                            <button onClick={handleNextToConfirm}>Next</button>
+                        </div>
                     </div>
                 );
             case 'confirm':
