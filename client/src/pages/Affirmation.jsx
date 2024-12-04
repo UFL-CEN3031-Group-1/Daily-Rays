@@ -18,7 +18,7 @@ const Affirmation = () => {
         );
     };
 
-    const handleNextToConfirm = () => {
+    const handleNextToConfirm = async () => {
         if (affirmation.trim()) {
             setCurrentPage('confirm');
         } else {
@@ -43,13 +43,15 @@ const Affirmation = () => {
                 return (
                     <div>
                         <h1>Enter Your Affirmation</h1>
-                        {/* <AffirmationBox affirmation={affirmation} /> */}
+                        <AffirmationBox affirmation={affirmation} />
+                        {/**
                         <textarea
                             value={affirmation}
                             onChange={(e) => setAffirmation(e.target.value)}
                             placeholder="Write your affirmation here..."
                         />
                         <button onClick={handleNextToConfirm}>Next</button>
+                        **/}
                     </div>
                 );
             case 'confirm':
