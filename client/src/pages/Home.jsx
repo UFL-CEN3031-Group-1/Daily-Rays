@@ -24,19 +24,24 @@ const CustomH2 = styled(Typography)({
 
   const CaptionP = styled(Typography)({
     fontFamily: "'Special Elite', serif", 
-    fontSize: '20px',    
+    fontSize: '14px',    
     fontWeight: '50', 
     fontWeight: 'thin',               
     color: '#333',                       
-    textAlign: 'center',                 
   });
 
-//   const LineBreakWithText = styled(Box)({
-//     display: 'flex',
-//     alignItems: 'center',
-//     textAlign: 'center',
-//     margin: '20px 0', // Adjusts the spacing above and below the lines
-// });
+  const CaptionBody = styled(Typography)({
+    fontFamily: "'Special Elite', serif", 
+    fontSize: '15px',    
+    color: '#333',                       
+  });
+
+  const LineBreakWithText = styled(Box)({
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    margin: '20px 0', // Adjusts the spacing above and below the lines
+});
 
 //     const Line = styled(Box)({
 //         flex: 1,
@@ -172,54 +177,50 @@ const Home = () => {
   </Box>
 </Box>
 
-<Box sx={{ height: '2px', backgroundColor: 'black', marginTop: '1px' }} />
+<Box sx={{ height: '2px', backgroundColor: 'black', marginTop: '25px', marginLeft: '10px', marginRight: '10px'}} />
 
-            {/* Cards Section */}
-            <Grid2
-                container
-                spacing={4}
-                justifyContent="center"
-                alignItems="center"
-                sx={{ padding: 4, textAlign: 'center' }}
-            >
-                <Grid2 item xs={12} sm={4}>
-                    <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
-                        <CardContent>
-                            <Typography variant="h5" component="div">
-                                Start your day out right
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Blah blah
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid2>
-                <Grid2 item xs={12} sm={4}>
-                    <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
-                        <CardContent>
-                            <Typography variant="h5" component="div">
-                                Mindful Minutes
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Blah blah
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid2>
-                <Grid2 item xs={12} sm={4}>
-                    <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
-                        <CardContent>
-                            <Typography variant="h5" component="div">
-                                Keep Track
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Blah blah
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid2>
-            </Grid2>
-        </div>
+<Box sx={{ padding: 3 }}>
+      <Grid2 container spacing={3}>
+        {/* Make an Account Column */}
+        <Grid2 size={4}>
+          <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
+            Make an Account
+          </CaptionP>
+          <Box sx={{ marginTop: 2 }}>
+            {/* Add content or a form for "Make an Account" here */}
+            <CaptionBody variant="body1">Sign up to start optimizing your daily routine. 
+                Create your profile and unlock a world of positivity and well-being tools.</CaptionBody>
+          </Box>
+        </Grid2>
+
+        {/* Affirmations Column */}
+        <Grid2 size={4}>
+          <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
+            Affirmations
+          </CaptionP>
+          <Box sx={{ marginTop: 2 }}>
+            {/* Add content for Affirmations here */}
+            <CaptionBody variant="body1">Start your day with positivity by sending and receiving uplifting affirmations, 
+                 each verified through Machine Learning for authenticity.
+                 Connect with other users to boost your mindset with daily encouragement!</CaptionBody>
+          </Box>
+        </Grid2>
+
+        {/* Mindful Minutes Column */}
+        <Grid2 size={4}>
+          <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
+            Mindful Minutes
+          </CaptionP>
+          <Box sx={{ marginTop: 2 }}>
+            {/* Add content for Mindful Minutes here */}
+            <CaptionBody variant="body1">Struggling to find time for relaxation? We've got you covered! With one click, we’ll schedule two
+                 10-minute breaks into your day and send you reminders just before it's time to unwind.</CaptionBody>
+          </Box>
+        </Grid2>
+      </Grid2>
+    </Box>
+           
+    </div>
     );
 };
 

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 import { useUser } from '../contexts/UserContext';
 import { signOutUser } from '../auth'; // Ensure this function correctly signs out the user
-import rotateSunGif from '../images/rotate_sun5.gif';
+import rotateSunGif from '../images/rotate_sun.gif';
 
 const Header = () => {
   const { user, loading, error } = useUser();
@@ -41,7 +41,6 @@ const Header = () => {
       <nav className="nav">
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
           <li><Link to="/affirmation">Affirmation</Link></li>
           <li><Link to="/mindfulminutes">Mindful Minutes</Link></li>
           {user ? (
