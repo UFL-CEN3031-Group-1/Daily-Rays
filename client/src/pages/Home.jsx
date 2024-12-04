@@ -3,16 +3,15 @@ import WbSunny from '@mui/icons-material/WbSunny';
 import '@fontsource/roboto/400.css';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/system';
-import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Grid2 } from '@mui/material';
 import '../styles/Home.css';
 import bwSunImage from '../images/bw_sun.jpg';
+import bwSunImage2 from '../images/bw_sun_3.jpg';
+
 import otherSunImage from '../images/cute_sunshine_pic.webp';
-
-
 
 const CustomH2 = styled(Typography)({
     fontFamily: "'Playfair Display', serif", 
@@ -71,7 +70,7 @@ const getCurrentDate = () => {
           </Typography>
   
           {/* Web Sun Emojis */}
-          <WbSunnyTwoToneIcon fontSize="small" sx={{ margin: 0.5 }} />
+          <WbSunny fontSize="small" sx={{ margin: 0.5 }} />
           
   
           {/* Carpe Diem */}
@@ -99,139 +98,91 @@ const Home = () => {
 
                     <LineWithText variant="body1"/>
                 </Box>
-            
-                <Grid2 container spacing={2} sx={{ height: '100vh' }}>
-                    <Grid2 item xs={12} md={9}>
-                        <Box
-                        sx={{
-                            width: '100%',
-                            marginLeft: 2,
-                        }}
-                        >
-                        <img
-                            src={bwSunImage}
-                            alt="Sunshine"
-                            style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',  // Ensure the image scales properly without stretching
-                            }}
-                        />
-                        </Box>
-                        
-                    </Grid2>
 
-                    <Grid2 item xs={12} md={3}  sx={{ height: '100vh' }}>
-                        <Grid2 container direction="column" spacing={2} sx={{ height: '100%' }}>
-                        {/* Top half: Quote */}
-                        <Grid2 item xs={6}>
-                            <Box sx={{ height: '3px', backgroundColor: 'black', marginTop: '1px' }} />
-                            <Box sx={{ padding: 2, textAlign: 'center', height: '100%' }}>
-                            <Typography variant="h6" sx={{ fontStyle: 'italic', color: '#333' }}>
-                                "Wherever you go, no matter the weather, always bring your own sunshine!"
-                            </Typography>
-                            </Box>
-                            <Box sx={{ height: '3px', backgroundColor: 'black', marginTop: '1px' }} />
-                        </Grid2>
+                <Box
+  sx={{
+    display: 'flex',         // Align image and quote/picture horizontally
+    alignItems: 'flex-start', // Align items to the top of the container
+    justifyContent: 'flex-start',
+    marginLeft: 2,
+  }}
+>
+  {/* Left Image (Big Picture) */}
+  <Box
+    sx={{
+      width: '150vh',
+      marginRight: 2,  // Add space between the image and the quote
+    }}
+  >
+    <img
+      src={bwSunImage}
+      alt="Sunshine"
+      style={{
+        width: '100%',
+        height: '50%',
+        objectFit: 'cover',
+      }}
+    />
+  </Box>
 
-                        Bottom half: Another Image
-                        <Grid2 item xs={6}>
-                                <Box
-                                sx={{
-                                    width: '100%',
-                                    marginLeft: 2,
-                                }}
-                                >
-                                <img
-                                    src={otherSunImage}
-                                    alt="Sunshine"
-                                    style={{ 
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',  // Ensure the image scales properly without stretching
-                                    }}
-                                />
-                                </Box>
-                        </Grid2>
-                        </Grid2>
-                    </Grid2>
-                </Grid2>
-  
+  {/* Right Section (Quote + Image Below) */}
+  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
+    <Box sx={{ padding: 2, textAlign: 'center', height: '100%' }}>
+      <Typography
+        variant="h6"
+        sx={{
+          fontSize: '24px',
+          fontFamily: "'Special Elite', serif",
+          fontWeight: 'italics',
+          marginTop: 8,     // Adds space above the text
+          marginBottom: 8,  // Adds space below the text
+          paddingLeft: 3,   // Adds space on the left side of the text
+          paddingRight: 3,  // Adds space on the right side of the text
+        }}
+      >
+        "Wherever you go, no matter the weather, always bring your own sunshine!"
+      </Typography>
+    </Box>
+    
+    {/* Separator line */}
+    <Box sx={{ height: '3px', backgroundColor: 'black', marginTop: '1px' }} />
 
-            {/* Main Content */}
-            <Grid container spacing={2} sx={{ height: '100vh' }}>
-                <Grid item xs={12} md={9}>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            height: '100%',
-                            padding: '16px',
-                        }}
-                    >
-                        <img
-                            src={bwSunImage}
-                            alt="Sunshine"
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover',
-                            }}
-                        />
-                    </Box>
-                </Grid>
-                <Grid item xs={12} md={3} sx={{ height: '100%' }}>
-                    <Grid
-                        container
-                        direction="column"
-                        spacing={2}
-                        justifyContent="center"
-                        alignItems="center"
-                        sx={{ height: '100%' }}
-                    >
-                        {/* Quote Section */}
-                        <Grid item xs={6}>
-                            <Box sx={{ textAlign: 'center', padding: 2 }}>
-                                <Typography
-                                    variant="h6"
-                                    sx={{ fontStyle: 'italic', color: '#333' }}
-                                >
-                                    "Wherever you go, no matter the weather, always bring your own
-                                    sunshine!"
-                                </Typography>
-                            </Box>
-                        </Grid>
-                        {/* Image Section */}
-                        <Grid item xs={6}>
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    height: '100%',
-                                }}
-                            >
-                                <img
-                                    src={otherSunImage}
-                                    alt="Sunshine"
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover',
-                                    }}
-                                />
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
+    {/* New Image Underneath the Quote */}
+    <Box
+      sx={{
+        width: '100%',
+        height: 'auto',  // Set height to 'auto' or a fixed value like '50%'
+        maxHeight: '264px',  // Or set a max-height to limit the image's height
+        display: 'flex',
+        justifyContent: 'center',
+        marginRight: 2
+      }}
+    >
+      <img
+        src={bwSunImage2}  // Replace with your second image source
+        alt="New Image"
+        style={{
+          width: '100%',
+          height: 'auto', // Maintain aspect ratio and scale height accordingly
+          maxHeight: '264px',  // Adjust max-height to make the image shorter
+          objectFit: 'cover',
+        }}
+      />
+    </Box>
+  </Box>
+</Box>
+
+<Box sx={{ height: '2px', backgroundColor: 'black', marginTop: '1px' }} />
 
             {/* Cards Section */}
-            <Grid
+            <Grid2
                 container
                 spacing={4}
                 justifyContent="center"
                 alignItems="center"
                 sx={{ padding: 4, textAlign: 'center' }}
             >
-                <Grid item xs={12} sm={4}>
+                <Grid2 item xs={12} sm={4}>
                     <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
@@ -242,8 +193,8 @@ const Home = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
-                <Grid item xs={12} sm={4}>
+                </Grid2>
+                <Grid2 item xs={12} sm={4}>
                     <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
@@ -254,8 +205,8 @@ const Home = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
-                <Grid item xs={12} sm={4}>
+                </Grid2>
+                <Grid2 item xs={12} sm={4}>
                     <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                         <CardContent>
                             <Typography variant="h5" component="div">
@@ -266,8 +217,8 @@ const Home = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
-            </Grid>
+                </Grid2>
+            </Grid2>
         </div>
     );
 };
