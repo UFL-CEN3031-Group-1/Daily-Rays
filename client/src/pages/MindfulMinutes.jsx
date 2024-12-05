@@ -21,8 +21,12 @@ const MindfulMinutes = () => {
 
 
     const formatTime = (isoString) => {
+        if (!isoString || isNaN(new Date(isoString))) {
+            return "";
+        }
         const date = new Date(isoString);
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        
     };
 
     const handleClick = async () => {
@@ -51,7 +55,7 @@ const MindfulMinutes = () => {
             const validRelaxationTimes = relaxationTimes.filter(time => time !== "");
             if (validRelaxationTimes.length > 0) {
                 try {
-                    const response = await fetch('http://localhost:5050/api/create-events', {
+                    const response = await fetch('http://localhost:5000/api/create-events', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -120,10 +124,10 @@ const MindfulMinutes = () => {
                     <Card sx={{ width: '100%',  padding: 1 }}>
                         <CardContent>
                             <Typography variant="h7" component="div">
-                                Task 1
+                                Relaxation Session #1
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {formatTime(relaxationTimes[0]) || "Blah blah"}
+                                {formatTime(relaxationTimes[0])}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -132,10 +136,10 @@ const MindfulMinutes = () => {
                     <Card sx={{ width: '100%',  padding: 1 }}>
                         <CardContent>
                             <Typography variant="h7" component="div">
-                                Task 2
+                                Relaxation Session #1
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {formatTime(relaxationTimes[1])|| "Blah blah"}
+                                {formatTime(relaxationTimes[1])}
                             </Typography>
                         </CardContent>
                     </Card>
