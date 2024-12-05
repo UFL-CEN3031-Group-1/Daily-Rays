@@ -1,5 +1,7 @@
 import AffirmationBox from '../components/AffirmationBox';
+import AffirmationBoxWithValidation from '../components/AffirmationBoxWithValidation';
 import { useState } from 'react';
+import axios from 'axios';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 
 const ReceivedAffirmation = ({ affirmation }) => (
@@ -9,28 +11,15 @@ const ReceivedAffirmation = ({ affirmation }) => (
     </div>
 );
 
-const AffirmationBoxWithValidation = ({ affirmation, setPositiveAffirmation }) => {
-    // Mock validation for positivity
-    const isPositive = affirmation.toLowerCase().includes('good');
-    setPositiveAffirmation(isPositive);
-
-    return (
-        <div>
-            <p>{isPositive ? 'Positive affirmation!' : 'Please enter a positive affirmation.'}</p>
-        </div>
-    );
-};
-
 const Affirmation = () => {
     const [affirmation, setAffirmation] = useState('');
     const [positiveAffirmation, setPositiveAffirmation] = useState(false);
     const [currentPage, setCurrentPage] = useState('enter'); // 'enter', 'confirm', 'receive'
     const [receivedAffirmation, setReceivedAffirmation] = useState('');
 
-    const fetchMockAffirmation = async () => {
-        return new Promise((resolve) =>
-            setTimeout(() => resolve('Yippeeee!'), 1000)
-        );
+    const fetchAffirmation = async () => {
+        const response = await axios.get('http://127.0.0.1:5050/api/receive');
+        return response.data;
     };
 
     const handleNextToConfirm = () => {
@@ -42,13 +31,14 @@ const Affirmation = () => {
     };
 
     const handleConfirmAffirmation = async () => {
-        const fetchedAffirmation = await fetchMockAffirmation();
-        setReceivedAffirmation(fetchedAffirmation);
+        const fetchedAffirmation = await fetchAffirmation();
+        setReceivedAffirmation(fetchedAffirmation.affirmation || fetchAffirmation.error);
         setCurrentPage('receive');
     };
 
     const handleBackToEnter = () => {
         setAffirmation('');
+        setReceivedAffirmation('')
         setPositiveAffirmation(false);
         setCurrentPage('enter');
     };
