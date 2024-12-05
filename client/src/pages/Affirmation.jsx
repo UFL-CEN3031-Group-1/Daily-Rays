@@ -2,6 +2,7 @@ import AffirmationBox from '../components/AffirmationBox';
 import AffirmationBoxWithValidation from '../components/AffirmationBoxWithValidation';
 import { useState } from 'react';
 import axios from 'axios';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
 const ReceivedAffirmation = ({ affirmation }) => (
     <div>
@@ -48,6 +49,10 @@ const Affirmation = () => {
                 return (
                     <div>
                         <div>
+                            <br></br>
+                            <AddCommentIcon fontSize="medium" sx={{ margin: 1 }} />
+                            <AddCommentIcon fontSize="medium" sx={{ margin: 1 }} />
+                            <AddCommentIcon fontSize="medium" sx={{ margin: 1 }} />
                             <h1>Enter Your Affirmation</h1>
                             <AffirmationBoxWithValidation
                                 affirmation={affirmation}
@@ -57,6 +62,13 @@ const Affirmation = () => {
                                 value={affirmation}
                                 onChange={(e) => setAffirmation(e.target.value)}
                                 placeholder="Write your affirmation here..."
+                                style={{
+                                    width: '50%',     // Takes up full width of the container
+                                    height: '100',   // Makes the height larger
+                                    fontSize: '16px',  // Increases the text size
+                                    padding: '10px',   // Adds padding inside the textarea
+                                    borderRadius: '5px' // Optional: Adds rounded corners for a smoother look
+                                }}
                             />
                         </div>
                         <div>

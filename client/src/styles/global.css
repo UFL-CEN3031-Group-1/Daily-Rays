@@ -12,7 +12,7 @@
 
 /* Base Styles */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Special Elite', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
@@ -22,10 +22,10 @@ body {
 }
 
 h1, h2 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Special Elite', sans-serif;
     margin: 1rem 0;
     font-weight: 400;
-    color: #1e88e5;
+    color: #017D94;
 }
 
 h3, h4, h5, h6 {
@@ -91,10 +91,14 @@ button.secondary:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #99d1f9;
+    background-image: url('../images/bluesky.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     padding: 1rem 2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 .main-content {
     display: grid;
