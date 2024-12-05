@@ -91,10 +91,14 @@ button.secondary:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #99d1f9;
+    background-image: url('../images/bluesky.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     padding: 1rem 2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 .main-content {
     display: grid;
