@@ -53,7 +53,7 @@ const CustomH2 = styled(Typography)({
 
 const getCurrentDate = () => {
     const date = new Date();
-    return date.toLocaleDateString(); // Format date as you like
+    return date.toLocaleDateString(); // Format date 
   };
   
   const LineWithText = () => {
@@ -108,7 +108,7 @@ const Home = () => {
 
                 <Box
   sx={{
-    display: 'flex',         // Align image and quote/picture horizontally
+    display: 'flex',        
     alignItems: 'flex-start', // Align items to the top of the container
     justifyContent: 'flex-start',
     marginLeft: 2,
@@ -118,7 +118,7 @@ const Home = () => {
   <Box
     sx={{
       width: '150vh',
-      marginRight: 2,  // Add space between the image and the quote
+      marginRight: 2,  
     }}
   >
     <img
@@ -141,10 +141,10 @@ const Home = () => {
           fontSize: '24px',
           fontFamily: "'Special Elite', serif",
           fontWeight: 'italics',
-          marginTop: 8,     // Adds space above the text
-          marginBottom: 8,  // Adds space below the text
-          paddingLeft: 3,   // Adds space on the left side of the text
-          paddingRight: 3,  // Adds space on the right side of the text
+          marginTop: 8,     
+          marginBottom: 8,  
+          paddingLeft: 3,   
+          paddingRight: 3,  
         }}
       >
         "Wherever you go, no matter the weather, always bring your own sunshine!"
@@ -158,20 +158,20 @@ const Home = () => {
     <Box
       sx={{
         width: '100%',
-        height: 'auto',  // Set height to 'auto' or a fixed value like '50%'
-        maxHeight: '264px',  // Or set a max-height to limit the image's height
+        height: 'auto',  
+        maxHeight: '264px',  
         display: 'flex',
         justifyContent: 'center',
         marginRight: 2
       }}
     >
       <img
-        src={bwSunImage2}  // Replace with your second image source
+        src={bwSunImage2}  
         alt="New Image"
         style={{
           width: '100%',
-          height: 'auto', // Maintain aspect ratio and scale height accordingly
-          maxHeight: '264px',  // Adjust max-height to make the image shorter
+          height: 'auto', 
+          maxHeight: '264px',  
           objectFit: 'cover',
         }}
       />
@@ -211,7 +211,7 @@ const Home = () => {
                 Make an Account
             </CaptionP>
             <Box sx={{ marginTop: 1, marginBottom: 8  }}>
-                {/* Add content or a form for "Make an Account" here */}
+                {/* content or a form for "Make an Account" here */}
                 <CaptionBody variant="body1">Sign up to start optimizing your daily routine. 
                     Create your profile and unlock a world of positivity and well-being tools.</CaptionBody>
             </Box>
@@ -220,7 +220,7 @@ const Home = () => {
                 Affirmations
             </CaptionP>
             <Box sx={{ marginTop: 1, marginBottom: 8 }}>
-                {/* Add content for Affirmations here */}
+                {/*  content for Affirmations here */}
                 <CaptionBody variant="body1">Start your day with positivity by sending and receiving uplifting affirmations, 
                     each verified through Machine Learning for authenticity.
                     Connect with other users to boost your mindset with daily encouragement!</CaptionBody>
@@ -230,7 +230,7 @@ const Home = () => {
                 Mindful Minutes
             </CaptionP>
             <Box sx={{ marginTop: 1, marginBottom: 8  }}>
-                {/* Add content for Mindful Minutes here */}
+                {/*  content for Mindful Minutes here */}
                 <CaptionBody variant="body1">Struggling to find time for relaxation? We've got you covered! With one click, we’ll schedule two
                     10-minute breaks into your day and send you reminders just before it's time to unwind.</CaptionBody>
             </Box>

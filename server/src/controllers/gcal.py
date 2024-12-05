@@ -93,7 +93,7 @@ def get_open_time_slots():
 
     potential_slots = []
     for start, end in open_slots:
-        while (end - start) >= timedelta(minutes=10):  # Ensure at least 10S mins
+        while (end - start) >= timedelta(minutes=10):  # Ensure at least 10 mins
             potential_slots.append(start)
             start += timedelta(minutes=10)  # Increment by 10 mins
 
