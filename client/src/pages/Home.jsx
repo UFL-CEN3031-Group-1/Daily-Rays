@@ -10,6 +10,8 @@ import { Grid2 } from '@mui/material';
 import '../styles/Home.css';
 import bwSunImage from '../images/bw_sun.jpg';
 import bwSunImage2 from '../images/bw_sun_3.jpg';
+import crossword from '../images/crossword2.png';
+
 
 import otherSunImage from '../images/cute_sunshine_pic.webp';
 
@@ -179,49 +181,69 @@ const Home = () => {
 
 <Box sx={{ height: '2px', backgroundColor: 'black', marginTop: '25px', marginLeft: '10px', marginRight: '10px'}} />
 
-<Box sx={{ padding: 3 }}>
-      <Grid2 container spacing={3}>
-        {/* Make an Account Column */}
-        <Grid2 size={4}>
-          <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
-            Make an Account
-          </CaptionP>
-          <Box sx={{ marginTop: 2 }}>
-            {/* Add content or a form for "Make an Account" here */}
-            <CaptionBody variant="body1">Sign up to start optimizing your daily routine. 
-                Create your profile and unlock a world of positivity and well-being tools.</CaptionBody>
-          </Box>
-        </Grid2>
+   
 
-        {/* Affirmations Column */}
-        <Grid2 size={4}>
-          <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
-            Affirmations
-          </CaptionP>
-          <Box sx={{ marginTop: 2 }}>
-            {/* Add content for Affirmations here */}
-            <CaptionBody variant="body1">Start your day with positivity by sending and receiving uplifting affirmations, 
-                 each verified through Machine Learning for authenticity.
-                 Connect with other users to boost your mindset with daily encouragement!</CaptionBody>
-          </Box>
-        </Grid2>
+    <Box sx={{ padding: 3 }}>
+        <Grid2 container spacing={3}>
+         {/* WORDSEARCH */}
+         <Grid2 size={6}>
+            <Box
+                sx={{
+                width: '100%',
+                marginRight: 2,  // Add space between the image and the quote
+                }}
+            >
+                <img
+                src={crossword}
+                alt="crossword"
+                style={{
+                    width: '100%',
+                    height: '50%',
+                    objectFit: 'cover',
+                }}
+                />
+            </Box>
+         </Grid2>
 
-        {/* Mindful Minutes Column */}
-        <Grid2 size={4}>
-          <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
-            Mindful Minutes
-          </CaptionP>
-          <Box sx={{ marginTop: 2 }}>
-            {/* Add content for Mindful Minutes here */}
-            <CaptionBody variant="body1">Struggling to find time for relaxation? We've got you covered! With one click, we’ll schedule two
-                 10-minute breaks into your day and send you reminders just before it's time to unwind.</CaptionBody>
-          </Box>
+        {/* DESCRIPTIONS */}
+         <Grid2 size={6}>
+            <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px', marginTop: 3}}>
+                Make an Account
+            </CaptionP>
+            <Box sx={{ marginTop: 1, marginBottom: 8  }}>
+                {/* Add content or a form for "Make an Account" here */}
+                <CaptionBody variant="body1">Sign up to start optimizing your daily routine. 
+                    Create your profile and unlock a world of positivity and well-being tools.</CaptionBody>
+            </Box>
+
+            <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
+                Affirmations
+            </CaptionP>
+            <Box sx={{ marginTop: 1, marginBottom: 8 }}>
+                {/* Add content for Affirmations here */}
+                <CaptionBody variant="body1">Start your day with positivity by sending and receiving uplifting affirmations, 
+                    each verified through Machine Learning for authenticity.
+                    Connect with other users to boost your mindset with daily encouragement!</CaptionBody>
+            </Box>
+
+            <CaptionP variant="h6" sx={{ fontWeight: 'bold', fontSize: '24px' }}>
+                Mindful Minutes
+            </CaptionP>
+            <Box sx={{ marginTop: 1, marginBottom: 8  }}>
+                {/* Add content for Mindful Minutes here */}
+                <CaptionBody variant="body1">Struggling to find time for relaxation? We've got you covered! With one click, we’ll schedule two
+                    10-minute breaks into your day and send you reminders just before it's time to unwind.</CaptionBody>
+            </Box>
+         </Grid2>
+
         </Grid2>
-      </Grid2>
     </Box>
+
            
     </div>
     );
 };
 
 export default Home;
+
+
