@@ -1,5 +1,6 @@
 import AffirmationBox from '../components/AffirmationBox';
 import { useState } from 'react';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
 const ReceivedAffirmation = ({ affirmation }) => (
     <div>
@@ -58,6 +59,10 @@ const Affirmation = () => {
                 return (
                     <div>
                         <div>
+                            <br></br>
+                            <AddCommentIcon fontSize="medium" sx={{ margin: 1 }} />
+                            <AddCommentIcon fontSize="medium" sx={{ margin: 1 }} />
+                            <AddCommentIcon fontSize="medium" sx={{ margin: 1 }} />
                             <h1>Enter Your Affirmation</h1>
                             <AffirmationBoxWithValidation
                                 affirmation={affirmation}

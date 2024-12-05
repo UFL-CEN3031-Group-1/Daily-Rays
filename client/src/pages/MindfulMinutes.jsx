@@ -84,9 +84,7 @@ const MindfulMinutes = () => {
                     <MoreTimeIcon fontSize="medium" sx={{ margin: 1 }} />
                     <MoreTimeIcon fontSize="medium" sx={{ margin: 1 }} />
                 </Box>
-                <Typography variant="h4" gutterBottom >
-                    <strong>Mindful Minutes</strong>
-                </Typography>
+                <h1>Mindful Minutes</h1>
                 <Typography variant="body1" paddingBottom={2}>
                     Finding it challenging to prioritize self-care amidst your busy life? <br />
                     We’ve got you covered!
