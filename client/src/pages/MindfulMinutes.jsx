@@ -101,7 +101,6 @@ const MindfulMinutes = () => {
                     <Box display="flex" justifyContent="center" marginTop={2}>
                         <Button
                             variant="contained"
-                             color="warning"
                             onClick={handleClick}
                             sx={{ width: '50%' }} // Set button width to half
                         >
@@ -113,7 +112,7 @@ const MindfulMinutes = () => {
                             <Typography variant="body1" sx={{ marginRight: 1 }}>
                                 Enable Notifications:
                             </Typography>
-                            <Switch {...label} onChange={handleNotificationsToggle} color="warning" />
+                            <Switch {...label} onChange={handleNotificationsToggle} />
                         </Box>
                     )}
                                     
