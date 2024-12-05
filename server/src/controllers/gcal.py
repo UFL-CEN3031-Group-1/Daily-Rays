@@ -11,11 +11,11 @@ import random
 
 app = Flask(__name__)
 CORS(app,  origins=["http://localhost:3000", "http://127.0.0.1:5000", "http://127.0.0.1:5050", "http://127.0.0.1:8000"])
-port = 5050
+port = 5000
 
 @app.after_request
 def after_request(response):
-    allowed_origins = ['http://localhost:3000', 'http://127.0.0.1:3000', 
+    allowed_origins = ['http://localhost:5000', 'http://127.0.0.1:5000', 
                       'http://localhost:8000', 'http://127.0.0.1:8000']
     origin = request.headers.get('Origin')
     if origin in allowed_origins:
@@ -143,4 +143,4 @@ def event_to_dict(event):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5050)
+    app.run(debug=True, port=5000)

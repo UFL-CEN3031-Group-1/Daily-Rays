@@ -27,7 +27,7 @@ const MindfulMinutes = () => {
 
     const handleClick = async () => {
         try {
-            const response = await fetch('http://localhost:5050/api/getmindful'); 
+            const response = await fetch('http://localhost:5000/api/getmindful'); 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
