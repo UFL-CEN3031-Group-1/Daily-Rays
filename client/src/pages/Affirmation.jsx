@@ -72,6 +72,13 @@ const Affirmation = () => {
                                 value={affirmation}
                                 onChange={(e) => setAffirmation(e.target.value)}
                                 placeholder="Write your affirmation here..."
+                                style={{
+                                    width: '50%',     // Takes up full width of the container
+                                    height: '100',   // Makes the height larger
+                                    fontSize: '16px',  // Increases the text size
+                                    padding: '10px',   // Adds padding inside the textarea
+                                    borderRadius: '5px' // Optional: Adds rounded corners for a smoother look
+                                }}
                             />
                         </div>
                         <div>

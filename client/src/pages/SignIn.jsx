@@ -58,7 +58,7 @@ const SignIn = () => {
 
     return (
         <Box className="sign-in-page" sx={{ maxWidth: 'max(300px, 20%)', mx: 'auto', mt: 5, textAlign: 'center' }}>
-            <Typography
+            {/* <Typography
                 variant="h4"
                 component="h1"
                 gutterBottom
@@ -70,8 +70,8 @@ const SignIn = () => {
                 }}
             >
                 Welcome Back!
-            </Typography>
-
+            </Typography> */}
+            <h1>Welcome Back!</h1>
             <Button
                 variant="contained"
                 startIcon={<GoogleIcon />}
